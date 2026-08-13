@@ -27,6 +27,30 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // update the favicon to match the current theme
+  useEffect(() => {
+    const favicon =
+      document.querySelector<HTMLLinkElement>("#dynamic-favicon") ??
+      Object.assign(document.createElement("link"), {
+        id: "dynamic-favicon",
+        rel: "icon",
+        type: "image/svg+xml",
+      });
+
+    if (!favicon.parentNode) {
+      document.head.appendChild(favicon);
+    }
+
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <rect width="32" height="32" rx="6" fill="${theme.dark}" />
+        <circle cx="16" cy="16" r="7" fill="${theme.light}" />
+      </svg>
+    `;
+
+    favicon.href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  }, [theme]);
+
   const handleTimeClick = () => {
     const hue = Math.floor(Math.random() * 360);
     const dark = `hsl(${hue}, 100%, 5%)`;
