@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [time, setTime] = useState<string>("");
+  const [time, setTime] = useState<string>("........");
   const [theme, setTheme] = useState({
     dark: "hsl(220, 100%, 5%)",
     mid: "hsl(220, 50%, 30%)",
